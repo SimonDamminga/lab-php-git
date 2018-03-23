@@ -22,7 +22,7 @@ $lists = mysqli_fetch_all($result);
 
 $currentList = null;
 $AllLists = array();
-$Alltasks = array();
+$Alltasks = array(); 
 
 
 class Task {
