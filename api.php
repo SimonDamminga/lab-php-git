@@ -61,20 +61,31 @@ foreach($AllLists as $list):
             array_push($list->tasks, new Task($task->id, $task->description, $task->duration, $task->status));
         }
     endforeach;
+
+    usort($list->tasks, function($a, $b){
+        return $a->$_GET['sort'] - $b->$_GET['sort'];
+    });
 endforeach; 
-
-?><?php
-
-
 
 $AllLists = array_unique($AllLists);
 
-print_r($AllLists[0]->tasks[0]);
+?>
 
-// usort($row, function($a, $b) {
-//   return $a[7] - $b[7];
-// });
+<?php foreach ($AllLists as $items): ?>
 
+<div class="list-group custom-list">
+  <a href="#" class="list-group-item active">
+    <?= $items->title ?>
+  </a>
+
+    <?php if($items->tasks){ foreach ($items->tasks as $task): ?>
+        <a href="#" class="list-group-item"><?= "Naam: " . $task->description . " | Status: " . $task->status . " | Duration: " . $task->duration . " min" ?></a>
+    <?php endforeach; } ?>
+</div>
+<br>
+
+
+<?php endforeach;
 
 mysqli_close($con);
 
